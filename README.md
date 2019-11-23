@@ -8,6 +8,6 @@
 # python ClientA.py Port
 #
 
-Our roles for this project were as followed:
+Our roles for this project were...
 Kevin: Server side programming and roadmapping as well as research
 Shane: Client side programming and research
