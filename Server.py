@@ -27,7 +27,7 @@ if len(sys.argv) != 3:
     exit()
 IP = str(sys.argv[1])
 PORT = int(sys.argv[2])
-Buffer_Sz = 1024
+Buffer_Sz = 2200
 
 Server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 Server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
