@@ -1,10 +1,11 @@
 # Python TCP Client A
 import socket 
+import sys
 
 host = socket.gethostname() 
-port = 2004
-BUFFER_SIZE = 2000 
-MESSAGE = raw_input("tcpClientA: Enter message/ Enter exit:") 
+port = int(sys.argv[1])
+BUFFER_SIZE = 1024
+MESSAGE = raw_input("tcpClientA: Enter message/ 'exit' to exit:") 
  
 tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 tcpClientA.connect((host, port))

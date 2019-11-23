@@ -1,18 +1,19 @@
-# Python TCP Client A
+# Python TCP Client B
 import socket 
+import sys
 
 host = socket.gethostname() 
-port = 2004
-BUFFER_SIZE = 2000 
-MESSAGE = raw_input("ClientB: Enter message/ Enter exit:") 
+port = int(sys.argv[1])
+BUFFER_SIZE = 1024
+MESSAGE = raw_input("ClientB: Enter message/ 'exit' to exit:") 
  
-tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-tcpClientA.connect((host, port))
+tcpClientB = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+tcpClientB.connect((host, port))
 
 while MESSAGE != 'exit':
-    tcpClientA.send(MESSAGE)     
-    data = tcpClientA.recv(BUFFER_SIZE)
+    tcpClientB.send(MESSAGE)     
+    data = tcpClientB.recv(BUFFER_SIZE)
     print " ClientB received data:", data
     MESSAGE = raw_input("ClientB: Enter message to continue/ Enter exit:")
 
-tcpClientA.close() 
+tcpClientB.close() 
