@@ -3,25 +3,48 @@ from threading import Thread
 from SocketServer import ThreadingMixIn
 import sys
 from thread import *
+import os
+import thread
+import threading
+import time
+
+
+clients = []
+sem = threading.Semaphore()
+def broadcast(message, connection):
+      for c in clients:
+        sem.acquire()
+        c.send(message)
+        sem.release()
+        time.sleep(0.25)
+   
+                
+def remove(connection):
+    if connection in clients:
+        clients.remove(connection)
 
 class ClientThread(Thread):
-
-
+   
     def __init__(local,ip,port): 
         Thread.__init__(local) 
     
         local.ip = ip
         local.port = port
         print("User" + ip + "port:" + str(port) + "has joined the chat")
-
+        with sem:
+            clients.append(conn)
+    
     def run(local):
         while True:
             info = conn.recv(2048)
-            print("server has received:" + info)
-            msg = raw_input("Enter response from server:")
-            if (msg == 'exit'):
-                break
-            conn.send(msg)
+            if info:
+                 print("<" + str(local.port) + "> " + info)
+                 message_to_send = "<" + str(local.port) + "> " + info
+                 broadcast(message_to_send, conn)
+                 
+            else:
+                remove(conn)
+    
 if len(sys.argv) != 3:
     print("Please insert correct number of arguments")
     exit()
